@@ -54,11 +54,18 @@ const POSTS = Array.from({ length: 1000 }, (_, i) => {
 });
 
 // 화이트리스트 정렬 정의 (동점자 방지 id 결합)
+
 const SORT_WHITELIST = Object.freeze({
-  latest: (a, b) => b.id - a.id,
-  oldest: (a, b) => a.id - b.id,
-  views: (a, b) => (b.views !== a.views ? b.views - a.views : b.id - a.id)
+  latest: (a, b) =>
+    b.createdAt.localeCompare(a.createdAt) || b.id - a.id,
+
+  oldest: (a, b) =>
+    a.createdAt.localeCompare(b.createdAt) || a.id - b.id,
+
+  views: (a, b) =>
+    (b.views !== a.views ? b.views - a.views : b.id - a.id)
 });
+
 
 // ==========================================
 // 1. 오프셋 기반 페이지네이션 API
