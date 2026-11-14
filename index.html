@@ -221,15 +221,33 @@
       <button class="tab-btn" id="tabCursor" onclick="switchMode('cursor')">커서 기반 페이징 (WHERE id &lt; ?)</button>
     </div>
 
-    <div class="controls">
-      <input type="text" id="searchInput" class="input-text" placeholder="검색어 입력 (300ms 디바운스 적용)...">
-      <select id="sortSelect" class="select-box">
-        <option value="latest">최신순 (created_at DESC, id DESC)</option>
-        <option value="views">조회수순 (views DESC, id DESC)</option>
-        <option value="oldest">오래된순 (created_at ASC, id ASC)</option>
-      </select>
-      <button class="btn" onclick="applySearch()">조회</button>
-    </div>
+
+  <div class="controls">
+    <input
+      type="text"
+      id="searchInput"
+      class="input-text"
+      placeholder="검색어 입력 (300ms 디바운스 적용)..."
+    >
+
+    <select id="sortSelect" class="select-box">
+      <option value="latest">최신순 (created_at DESC, id DESC)</option>
+      <option value="views">조회수순 (views DESC, id DESC)</option>
+      <option value="oldest">오래된순 (created_at ASC, id ASC)</option>
+    </select>
+
+    <span
+      id="cursorSortNotice"
+      style="display:none; font-size:14px; font-weight:600; color:#596579; white-space:nowrap;"
+    >
+      🔒 ID 내림차순 고정
+    </span>
+
+    <button class="btn" onclick="applySearch()">조회</button>
+  </div>
+
+
+
 
     <div class="table-wrap">
       <table class="data-table">
@@ -313,6 +331,16 @@
     document.getElementById('paginationBar').style.display = (mode === 'offset') ? 'flex' : 'none';
     document.getElementById('cursorMoreWrap').style.display = (mode === 'cursor') ? 'flex' : 'none';
 
+    // 커서 모드에서는 정렬 선택을 비활성화하고 숨김
+    const sortSelect = document.getElementById('sortSelect');
+    sortSelect.disabled = (mode === 'cursor');
+    sortSelect.style.display = (mode === 'cursor') ? 'none' : '';
+
+    // 실제 커서 정렬 기준 안내
+    document.getElementById('cursorSortNotice').style.display =
+      (mode === 'cursor') ? 'inline-block' : 'none';
+
+
     state.page = 1;
     state.cursor = null;
     cursorPosts = [];
@@ -343,10 +371,23 @@
         window.history.pushState({}, '', `?${q.toString()}`);
       }
     } else {
-      const q = new URLSearchParams({ limit: state.limit });
-      if (state.cursor) q.set('cursor', state.cursor);
+      const q = new URLSearchParams({
+        limit: state.limit
+      });
+
+      // 커서 모드에서도 검색어 전달
+      if (state.search) {
+        q.set('search', state.search);
+      }
+
+      // 이전 페이지의 마지막 게시글 ID 전달
+      if (state.cursor) {
+        q.set('cursor', state.cursor);
+      }
+
       endpoint = `/api/posts/cursor?${q.toString()}`;
     }
+
 
     document.getElementById('inspectUrl').textContent = `GET ${endpoint}`;
 
