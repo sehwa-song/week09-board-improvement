@@ -4,8 +4,8 @@
 
 제출자: **컴퓨터인공지능학부 · 202346113 · 송세화**
 
-- [최종 실습 보고서](docs/최종실습보고서.md): 원본·개선 비교와 사용자 촬영 캡처 42장
-- [제출용 PDF](docs/최종실습보고서.pdf)
+- [보고서](https://github.com/sehwa-song/week09-board-improvement/raw/refs/heads/main/docs/%EC%B5%9C%EC%A2%85%EC%8B%A4%EC%8A%B5%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf): 보고서 원본 내려받기
+- [보고서 Markdown 원문](docs/최종실습보고서.md): 원본·개선 비교와 사용자 촬영 캡처 42장
 - [원본 캡쳐 기록](docs/캡쳐기록.md): 사용자 직접 검증 기록 보존본
 - [GitHub 저장소](https://github.com/sehwa-song/week09-board-improvement)
 
