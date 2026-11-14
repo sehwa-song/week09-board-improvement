@@ -82,7 +82,12 @@ app.get('/api/posts', (req, res) => {
   });
 
   // 2) 화이트리스트 정렬 (ORDER BY ...)
-  const sortComparator = SORT_WHITELIST[sortKey] || SORT_WHITELIST.latest;
+  const sortComparator =
+    typeof sortKey === 'string' &&
+    Object.hasOwn(SORT_WHITELIST, sortKey)
+      ? SORT_WHITELIST[sortKey]
+      : SORT_WHITELIST.latest;
+    
   filtered.sort(sortComparator);
 
   // 3) 오프셋 계산 및 데이터 슬라이싱
