@@ -1,0 +1,13 @@
+
+# Node.js 라이브러리
+node_modules/
+
+# 환경 변수 및 비밀 정보
+.env
+.env.*
+
+# macOS 시스템 파일
+.DS_Store
+
+# 로그 파일
+*.log
