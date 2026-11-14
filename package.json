@@ -1,0 +1,9 @@
+{
+  "name": "week09-board-improvement",
+  "version": "1.0.0",
+  "private": true,
+  "description": "웹서비스설계 9주차 게시판 개선 실습",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
